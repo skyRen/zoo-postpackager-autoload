@@ -1,0 +1,27 @@
+{
+  "name": "zoo-postpackager-autoload",
+  "version": "1.0.0",
+  "description": "based on fis-postpackager-autoload",
+  "main": "index",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/skyRen/zoo-postpackager-autoload"
+  },
+  "keywords": [
+    "fis-zoo",
+    "zoo-postpackager-autoload"
+  ],
+  "author": {
+    "name": "rsk",
+    "email": "rsk_rsk@163.com"
+  },
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "license": "BSD",
+  "bugs": {
+    "url": "https://github.com/xwenliang/fis-zoo/issues"
+  },
+  "homepage": "https://github.com/xwenliang/fis-zoo"
+}
