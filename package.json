@@ -1,0 +1,24 @@
+{
+  "name": "zoo-postpackager-autoload",
+  "version": "1.0.0",
+  "description": "zoo-postpackager-autoload for zoo-kernel",
+  "main": "index",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:skyRen/zoo-postpackager-autoload.git"
+  },
+  "keywords": [
+    "fis-zoo",
+    "zoo-kernel"
+  ],
+  "author": {
+    "name": "rsk",
+    "email": "rsk_rsk@163.com"
+  },
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "license": "BSD",
+  "homepage": "https://github.com/skyRen/zoo-postpackager-autoload"
+}
