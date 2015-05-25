@@ -306,16 +306,32 @@ module.exports = function (ret, conf, settings, opt) { //打包后处理
         var asyncList = getAsyncList(file);
         var jsList = [];
         var cssList = [];
+
+        /** added by rsk */
+        // var jsObj = {};
+        var cssObj = {};
+        /** added by rsk end */
+
         //将include资源添加入异步资源
         asyncList = asyncList.concat(include);
         asyncList = asyncList.filter(function (async, index) {
+
+            /** added by rsk */
+            // async.isJsLike && (jsObj[item.realpathNoExt] = item);
+            async.isCssLike && (cssObj[item.realpathNoExt] = item);
+            /** added by rsk end */
+
             //去除重复资源
             if (asyncList.indexOf(async) !== index){
                 return false;
             }
             //将样式表资源强制设定为同步加载，避免异步加载样式表
             if (async.isCssLike) {
-                depList.push(async);
+
+                /** deleted by rsk */
+                //depList.push(async);
+                /** deleted by rsk end */
+
                 return false;
             }
             return true;
@@ -323,6 +339,20 @@ module.exports = function (ret, conf, settings, opt) { //打包后处理
         //生成同步资源引用列表
         var usedPkg = {};
         var usedSync= {};
+
+        /** added by rsk */
+        var isRelative = fis.config.get('roadmap.relative');
+
+        var depListMore = [], depListItem;
+        for(var i=0,len=depList.length; i<len; i++){
+            depListItem = depList[i];
+            if(depListItem.isJsLike && cssObj[depListItem.realpathNoExt]){
+                depListMore.push(cssObj[depListItem.realpathNoExt]);
+            }
+        }
+        depList = depList.concat(depListMore);
+        /** added by rsk end */
+
         depList.forEach(function (dep) {
             var res = ret.map.res[dep.getId()], resClone;
             res.id = dep.getId();
@@ -338,7 +368,7 @@ module.exports = function (ret, conf, settings, opt) { //打包后处理
                 res = ret.map.pkg[res.pkg];
             }
 
-            var isRelative = fis.config.get('roadmap.relative');
+            /** modified by rsk */
             if(isRelative){
                 resClone = fis.util.clone(res);
                 resClone.uri = fis.util.getRelativePath(res.uri, file.release);
@@ -350,7 +380,19 @@ module.exports = function (ret, conf, settings, opt) { //打包后处理
                 isRelative && cssList.push(resClone) || cssList.push(res);
             else
                 fis.log.notice('[' + dep.getId() + '] is required, but ignored since it\'s not javascript or stylesheet');
+            /** modified by rsk end */
+
         });
+
+        /** added by rsk */
+        cssList = cssList.filter(function (obj, index) {
+            if (cssList.indexOf(obj) !== index){
+                return false;
+            }
+            return true;
+        });
+        /** added by rsk end */
+
         asyncList = asyncList.filter(function (async) {
             return !usedSync[async.getId()];
         });

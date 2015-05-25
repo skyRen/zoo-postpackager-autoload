@@ -1,6 +1,6 @@
 {
   "name": "zoo-postpackager-autoload",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "zoo-postpackager-autoload for zoo-kernel",
   "main": "index",
   "scripts": {},
