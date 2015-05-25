@@ -317,8 +317,8 @@ module.exports = function (ret, conf, settings, opt) { //打包后处理
         asyncList = asyncList.filter(function (async, index) {
 
             /** added by rsk */
-            // async.isJsLike && (jsObj[item.realpathNoExt] = item);
-            async.isCssLike && (cssObj[item.realpathNoExt] = item);
+            // async.isJsLike && (jsObj[async.realpathNoExt] = async);
+            async.isCssLike && (cssObj[async.realpathNoExt] = async);
             /** added by rsk end */
 
             //去除重复资源
