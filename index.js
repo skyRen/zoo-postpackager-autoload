@@ -284,6 +284,14 @@ module.exports = function (ret, conf, settings, opt) { //打包后处理
             }
             added[asyncId] = true;
             var async = ret.ids[asyncId];
+
+            //add by zooble, 有动态依赖的模块，则编译的时候肯定会找不到这个模块，把报警除去
+            var reg = /'|"/ig;
+            if(reg.test(asyncId)){
+                return false;
+            }
+            //end
+
             if (!async){
                 fis.log.notice('can\'t find async resource ['+asyncId+']');
                 return false;
