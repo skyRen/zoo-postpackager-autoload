@@ -232,6 +232,12 @@ module.exports = function (ret, conf, settings, opt) { //打包后处理
             }
             added[depId] = true;
             var dep = ret.ids[depId];
+            //兼容webpack打包的库，这种库的特点是模块都是相对路径，过滤编译报警
+            var reg = /\.\/|\.\.\//ig;
+            if(depId && reg.test(depId)){
+                return false;
+            }
+
             if (!dep){
                 var isNotice = true;
                 if(settings.notice && settings.notice.exclude) {
@@ -266,6 +272,12 @@ module.exports = function (ret, conf, settings, opt) { //打包后处理
             }
             depScaned[depId] = true;
             var dep = ret.ids[depId];
+            //兼容webpack打包的库，这种库的特点是模块都是相对路径，过滤编译报警
+            var reg = /\.\/|\.\.\//ig;
+            if(depId && reg.test(depId)){
+                return false;
+            }
+            
             if (!dep){
                 var isNotice = true;
                 if(settings.notice && settings.notice.exclude) {
